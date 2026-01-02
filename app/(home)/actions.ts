@@ -9,9 +9,16 @@ const formSchema = z
       .string()
       .trim()
       .min(1, "이메일을 적어주세요.")
-      .pipe(z.email("이메일 형식이 아니에요.")),
-    username: z.string().trim().min(1, "유저명을 적어주세요."),
-    password: z.string().trim().min(4, "비밀번호는 4글자 이상입니다."),
+      .pipe(z.email("이메일 형식이 아니에요."))
+      .refine((email) => email.endsWith("@zod.com"), {
+        message: "@zod.com 이메일만 사용할 수 있어요.",
+      }),
+    username: z.string().trim().min(5, "유저명은 5글자 이상입니다."),
+    password: z
+      .string()
+      .trim()
+      .min(10, "비밀번호는 10글자 이상입니다.")
+      .regex(/\d/, "비밀번호에는 숫자가 최소 1개 포함되어야 합니다."),
   })
   .superRefine(async (data, ctx) => {
     const user = await db.user.findUnique({

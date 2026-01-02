@@ -74,9 +74,12 @@ export default function Home() {
               </svg>
             }
           />
-          <span className="text-xs text-red-500">
-            {state?.fieldErrors.email}
-          </span>
+
+          {state?.fieldErrors.email?.map((emailError, index) => (
+            <span key={index} className="text-xs text-red-500">
+              {emailError}
+            </span>
+          ))}
 
           <Input
             invalid={invalid.username}
@@ -103,9 +106,11 @@ export default function Home() {
               </svg>
             }
           />
-          <span className="text-xs text-red-500">
-            {state?.fieldErrors.username}
-          </span>
+          {state?.fieldErrors.username?.map((usernameError, index) => (
+            <span key={index} className="text-xs text-red-500">
+              {usernameError}
+            </span>
+          ))}
           <Input
             invalid={invalid.password}
             name="password"
@@ -131,11 +136,11 @@ export default function Home() {
               </svg>
             }
           />
-          <span className="text-xs text-red-500">
-            {state?.fieldErrors.password
-              ? state?.fieldErrors.password[0]
-              : null}
-          </span>
+          {state?.fieldErrors.password?.map((passwordError, index) => (
+            <span key={index} className="text-xs text-red-500">
+              {passwordError}
+            </span>
+          ))}
           <Button name={"Log in"} />
           {state?.formErrors[0] === "Welcome back!" ? (
             <div className="flex cursor-pointer items-center justify-start rounded-xl bg-[#01B279] p-5 transition outline-none">
