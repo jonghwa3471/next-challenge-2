@@ -9,7 +9,6 @@ interface InputProps {
 
 export default function Input({
   name,
-  errors = [],
   invalid,
   icon,
   ...rest

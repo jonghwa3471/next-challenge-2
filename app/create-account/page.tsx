@@ -4,6 +4,7 @@ import Input from "@/components/input";
 import { useActionState } from "react";
 import { login } from "./actions";
 import Button from "@/components/button";
+import Link from "next/link";
 
 export default function Home() {
   const [state, action] = useActionState(login, null);
@@ -11,6 +12,8 @@ export default function Home() {
     email: false,
     username: false,
     password: false,
+    confirmPassword: false,
+    bio: false,
   };
   if (state?.fieldErrors.email) {
     invalid.email = true;
@@ -20,6 +23,12 @@ export default function Home() {
   }
   if (state?.fieldErrors.password) {
     invalid.password = true;
+  }
+  if (state?.fieldErrors.confirmPassword) {
+    invalid.confirmPassword = true;
+  }
+  if (state?.fieldErrors.bio) {
+    invalid.bio = true;
   }
   return (
     <div className="flex min-h-screen items-center justify-center">
@@ -141,30 +150,73 @@ export default function Home() {
               {passwordError}
             </span>
           ))}
-          <Button name={"Log in"} />
-          {state?.formErrors[0] === "Welcome back!" ? (
-            <div className="flex cursor-pointer items-center justify-start rounded-xl bg-[#01B279] p-5 transition outline-none">
-              <span>
-                <svg
-                  className="mr-2 size-7"
-                  data-slot="icon"
-                  fill="none"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
+          <Input
+            invalid={invalid.password}
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            type="password"
+            required
+            icon={
+              <svg
+                className="size-5 text-neutral-500"
+                data-slot="icon"
+                fill="#737373"
+                strokeWidth={1.5}
+                stroke="white"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"
+                />
+              </svg>
+            }
+          />
+          {state?.fieldErrors.confirmPassword?.map(
+            (confirmPasswordError, index) => (
+              <span key={index} className="text-xs text-red-500">
+                {confirmPasswordError}
               </span>
-              <span>{state.formErrors}</span>
-            </div>
-          ) : null}
+            ),
+          )}
+          <Input
+            invalid={invalid.bio}
+            name="bio"
+            placeholder="Bio"
+            type="text"
+            icon={
+              <svg
+                className="size-5 text-neutral-500"
+                data-slot="icon"
+                fill="none"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                />
+              </svg>
+            }
+          />
+          {state?.fieldErrors.bio?.map((bioError, index) => (
+            <span key={index} className="text-xs text-red-500">
+              {bioError}
+            </span>
+          ))}
+          <Button name={"Create Account"} />
+          <Link className="flex items-center justify-center" href="/login">
+            <span className="text-xs font-semibold underline">
+              Log In &rarr;
+            </span>
+          </Link>
         </form>
       </div>
     </div>
