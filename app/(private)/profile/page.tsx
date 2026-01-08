@@ -20,7 +20,7 @@ export default async function Profile() {
     redirect("/login");
   };
   return (
-    <div className="flex min-h-screen flex-col items-start justify-center gap-2 pb-50">
+    <div className="flex flex-col items-start justify-center gap-2 pb-50">
       <h1 className="text-2xl font-extrabold">{user.username}의 프로필</h1>
       <div className="flex flex-col text-lg font-semibold">
         <h3>이메일: {user.email}</h3>
