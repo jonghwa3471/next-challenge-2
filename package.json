@@ -11,9 +11,11 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@prisma/adapter-better-sqlite3": "^7.2.0",
+    "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "iron-session": "^8.0.4",
     "next": "16.1.1",
+    "pg": "^8.17.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "prisma": "^7.2.0",
     "react": "19.2.3",
