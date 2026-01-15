@@ -4,7 +4,12 @@ import db from "@/lib/db";
 import { formatDate } from "@/lib/formatDate";
 
 async function getTweets() {
-  const tweets = await db.tweet.findMany();
+  const tweets = await db.tweet.findMany({
+    include: {
+      user: true,
+      _count: true,
+    },
+  });
   return tweets;
 }
 
@@ -20,8 +25,10 @@ export default async function Home() {
           <Tweet
             key={tweet.id}
             tweet={tweet.tweet}
+            username={tweet.user.username}
             id={tweet.id}
             createdAt={formatDate(tweet.created_at)}
+            likeCount={tweet._count.likes}
           />
         ))}
       </div>

@@ -12,7 +12,7 @@ export default function Navigation() {
           className="flex size-10 cursor-pointer items-center justify-center rounded-lg transition hover:bg-neutral-500"
         >
           <svg
-            className="size-8"
+            className="size-7"
             data-slot="icon"
             fill="none"
             strokeWidth={1.5}
@@ -24,7 +24,7 @@ export default function Navigation() {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M15.75 19.5 8.25 12l7.5-7.5"
+              d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
             />
           </svg>
         </div>
@@ -33,7 +33,7 @@ export default function Navigation() {
           className="flex size-10 cursor-pointer items-center justify-center rounded-lg transition hover:bg-neutral-500"
         >
           <svg
-            className="size-8"
+            className="size-7"
             data-slot="icon"
             fill="none"
             strokeWidth={1.5}
@@ -45,7 +45,7 @@ export default function Navigation() {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3"
             />
           </svg>
         </div>
