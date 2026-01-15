@@ -2,6 +2,7 @@
 
 import db from "@/lib/db";
 import getSession from "@/lib/session";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import z from "zod";
 
@@ -20,6 +21,7 @@ export async function postTweet(_: unknown, formData: FormData) {
         userId: Number(session.id),
       },
     });
+    revalidatePath("/");
     redirect("/");
   }
 }
