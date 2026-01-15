@@ -35,15 +35,39 @@ export async function dislikeTweet(tweetId: number) {
   } catch {}
 }
 
-const commentSchema = z
-  .string()
-  .trim()
-  .max(200, "댓글은 200자 이내로 작성해주세요.");
+const schema = z.object({
+  comment: z
+    .string()
+    .trim()
+    .min(1, "댓글을 입력해주세요.")
+    .max(200, "댓글은 200자 이내로 작성해주세요."),
+  tweetId: z.coerce.number().int().positive(),
+});
 
 export async function addComment(_: unknown, formData: FormData) {
-  const comment = formData.get("comment");
-  const result = commentSchema.safeParse(comment);
+  const raw = {
+    comment: formData.get("comment"),
+    tweetId: formData.get("tweetId"),
+  };
+
+  const result = schema.safeParse(raw);
+
   if (!result.success) {
-    return z.flattenError(result.error);
+    const errors = z.flattenError(result.error);
+    return errors;
   }
+
+  const { comment, tweetId } = result.data;
+  const session = await getSession();
+
+  await db.response.create({
+    data: {
+      tweetId,
+      payload: comment,
+      userId: session.id!,
+    },
+  });
+
+  revalidatePath(`/tweets/${tweetId}`);
+  revalidatePath("/");
 }
